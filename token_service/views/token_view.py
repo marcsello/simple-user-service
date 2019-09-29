@@ -22,9 +22,9 @@ class TokenView(FlaskView):
     def post(self):
         credentials = self.request_schema.load(request.get_json())
 
-        u = User.query.from_statement(text("SELECT * FROM user WHERE password = SHA2(CONCAT(:p, user.salt), 512) AND username = :n")).params(p=credentials['password'], n=credentials['username']).first()
+        u = User.query.from_statement(text("SELECT * FROM user WHERE password = SHA2(CONCAT(:p, user.salt), 512) AND name = :n")).params(p=credentials['password'], n=credentials['username']).first()
 
         if u:
-            return {'token': create_jwt(u['username'])}
+            return {'token': create_jwt(u.name)}
         else:
             abort(401)
