@@ -7,13 +7,13 @@ from marshmallow.exceptions import ValidationError
 from sqlalchemy import text
 
 from utils import json_required
-from schemas import RequestSchema
+from schemas import TokenRequestSchema
 from model import User
 
 
 class TokenView(FlaskView):
 
-    request_schema = RequestSchema(partial=False)
+    request_schema = TokenRequestSchema(partial=False)
 
     @jwt_required
     def get(self):  # Testing the token
