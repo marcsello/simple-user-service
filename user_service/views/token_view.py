@@ -10,14 +10,14 @@ from utils import json_required
 from schemas import TokenRequestSchema
 from model import User
 
+#
+# This view handles token issuing for certain users.
+#
+
 
 class TokenView(FlaskView):
 
     request_schema = TokenRequestSchema(partial=False)
-
-    @jwt_required
-    def get(self):  # Testing the token
-        return {"username": get_jwt_identity()}
 
     @json_required
     def post(self):

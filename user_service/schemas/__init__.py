@@ -1,2 +1,3 @@
 #!/usr/bin/env python3
-from .request_schema import TokenRequestSchema
+from .token_request_schema import TokenRequestSchema
+from .user_schema import UserSchema

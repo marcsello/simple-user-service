@@ -10,7 +10,7 @@ from model import db
 from utils import register_all_error_handlers
 
 # import views
-from views import TokenView
+from views import TokenView, UsersView
 
 import configuration
 
