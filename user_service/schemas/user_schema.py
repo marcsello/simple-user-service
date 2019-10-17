@@ -7,6 +7,7 @@ import marshmallow.validate
 
 import string
 import random
+import hashlib
 
 
 class UserSchema(ModelSchema):
@@ -16,8 +17,8 @@ class UserSchema(ModelSchema):
 
     @post_load(pass_many=False)  # Autohash password on every load... altrought this is only usable for loading
     def password_hash(self, item, many, **kwargs):
-        item['salt'] = ''.join(random.choices(string.ascii_uppercase + string.digits, k=8))  # TODO: configurable
-        item['password'] = hashlib.sha512((item['password'] + item['salt']).encode("utf-8")).hexdigest()  # TODO: could be faster if stored binary in db
+        item.salt = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=8))  # TODO: configurable
+        item.password = hashlib.sha512((item.password + item.salt).encode("utf-8")).hexdigest()  # TODO: could be faster if stored binary in db
 
         return item
 

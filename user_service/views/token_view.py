@@ -12,6 +12,7 @@ from model import User
 
 #
 # This view handles token issuing for certain users.
+# This path MIGHT be exposed to users, but be very careful
 #
 
 
@@ -26,7 +27,7 @@ class TokenView(FlaskView):
         except ValidationError:
             abort(422)
 
-        u = User.query.from_statement(text("SELECT * FROM user WHERE password = SHA2(CONCAT(:p, user.salt), 512) AND name = :n")).params(p=credentials['password'], n=credentials['username']).first()
+        u = User.query.from_statement(text("SELECT * FROM user WHERE password = SHA2(CONCAT(:p, user.salt), 512) AND name = :n AND NOT disabled")).params(p=credentials['password'], n=credentials['name']).first()
 
         if u:
             return {'token': create_jwt(u.name)}

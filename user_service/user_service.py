@@ -37,7 +37,7 @@ with app.app_context():
 register_all_error_handlers(app)
 
 # register views
-for view in [TokenView]:
+for view in [TokenView, UsersView]:
     view.register(app, trailing_slash=False)
 
 # start debuggig if needed

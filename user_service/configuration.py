@@ -7,10 +7,15 @@ JWT_PUBLIC_KEY = ""
 
 # and now, let's override this
 
-SQLALCHEMY_DB_URI = os.environ.get("USERSERIVCE_DB_URI",SQLALCHEMY_DB_URI)
+SQLALCHEMY_DB_URI = os.environ.get("USERSERIVCE_DB_URI", SQLALCHEMY_DB_URI)
 
 if "USERSERVICE_PRIVATE_KEY" in os.environ:
-	JWT_PRIVATE_KEY = open(os.environ["USERSERVICE_PRIVATE_KEY"],'r').read()
+	JWT_PRIVATE_KEY = open(os.environ["USERSERVICE_PRIVATE_KEY"], 'r').read()
 
 if "USERSERVICE_PUBLIC_KEY" in os.environ:
-	JWT_PUBLIC_KEY = open(os.environ["USERSERVICE_PUBLIC_KEY"],'r').read()
+	JWT_PUBLIC_KEY = open(os.environ["USERSERVICE_PUBLIC_KEY"], 'r').read()
+
+# some default values
+
+if not SQLALCHEMY_DB_URI:
+	SQLALCHEMY_DB_URI = "sqlite://"
