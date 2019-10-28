@@ -27,7 +27,7 @@ class TokenView(FlaskView):
         except ValidationError:
             abort(422)
 
-        u = User.query.from_statement(text("SELECT * FROM user WHERE password = SHA2(CONCAT(:p, user.salt), 512) AND name = :n AND NOT disabled")).params(p=credentials['password'], n=credentials['name']).first()
+        u = User.query.from_statement(text("SELECT * FROM users WHERE password = SHA2(CONCAT(:p, users.salt), 512) AND name = :n AND NOT disabled")).params(p=credentials['password'], n=credentials['name']).first()
 
         if u:
             return {'token': create_jwt(u.name)}
